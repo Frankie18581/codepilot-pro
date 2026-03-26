@@ -7,6 +7,9 @@ services:
       - LLM_API_KEY=${LLM_API_KEY}
       - LLM_BASE_URL=${LLM_BASE_URL}
       - LLM_MODEL=${LLM_MODEL}
+      - NO_PROXY=localhost,127.0.0.1,api.deepseek.com
+      # - HTTP_PROXY=http://host.docker.internal:28856
+      # - HTTPS_PROXY=http://host.docker.internal:28856
     env_file:
       - .env
     volumes:
