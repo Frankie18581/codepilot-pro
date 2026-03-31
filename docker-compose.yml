@@ -1,4 +1,20 @@
 services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=codepilot
+      - POSTGRES_PASSWORD=codepilot_pass
+      - POSTGRES_DB=codepilot_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U codepilot -d codepilot_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   backend:
     build: ./backend
     ports:
@@ -7,13 +23,17 @@ services:
       - LLM_API_KEY=${LLM_API_KEY}
       - LLM_BASE_URL=${LLM_BASE_URL}
       - LLM_MODEL=${LLM_MODEL}
-      - NO_PROXY=localhost,127.0.0.1,api.deepseek.com
-      # - HTTP_PROXY=http://host.docker.internal:28856
-      # - HTTPS_PROXY=http://host.docker.internal:28856
+      - DATABASE_URL=postgresql+asyncpg://codepilot:codepilot_pass@db:5432/codepilot_db
+      - NO_PROXY=localhost,127.0.0.1,api.deepseek.com,db
+      - HTTP_PROXY=
+      - HTTPS_PROXY=
     env_file:
       - .env
     volumes:
       - ./backend:/app
+    depends_on:
+      db:
+        condition: service_healthy
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
@@ -28,3 +48,6 @@ services:
       - backend
     environment:
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+
+volumes:
+  postgres_data:

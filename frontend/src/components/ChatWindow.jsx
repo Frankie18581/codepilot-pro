@@ -26,7 +26,7 @@ export function ChatWindow({ messages, loading }) {
         </div>
         <div className="flex items-center gap-4 text-xs text-gray-400 font-medium">
           <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-800 rounded-full border border-gray-700">
-            <ShieldCheck size={14} className="text-green-500" /> HIC Active
+            <ShieldCheck size={14} className="text-green-500" /> DB Persistent
           </div>
         </div>
       </div>
@@ -42,15 +42,8 @@ export function ChatWindow({ messages, loading }) {
               <Terminal size={48} className="text-blue-500 mb-4 mx-auto opacity-50" />
               <p className="text-xl font-bold text-gray-200">准备好编写代码了吗？</p>
               <p className="text-sm text-gray-500 max-w-xs mt-3 leading-relaxed">
-                我是您的结对编程伙伴，支持 HIC 意图判断与流式输出。
+                我是您的结对编程伙伴，基于数据库和 LangGraph 实现持久化对话。
               </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-2">
-                {["写一个爬虫", "帮我解释下 Docker", "做一个猜数字游戏"].map((q) => (
-                  <span key={q} className="px-3 py-1.5 bg-gray-800 hover:bg-gray-700 text-xs text-gray-400 rounded-full border border-gray-700 transition-colors cursor-pointer">
-                    {q}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
         )}

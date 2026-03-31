@@ -1,12 +1,11 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { CodeBlock } from "./CodeBlock";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { User, Cpu, ShieldAlert } from "lucide-react";
 
 export function MessageBubble({ role, content }) {
   const isUser = role === "user";
-  const isHIC = content.includes("[HIC 介入]");
   const isSystem = role === "system";
 
   return (
@@ -21,13 +20,8 @@ export function MessageBubble({ role, content }) {
         {/* 气泡 */}
         <div className={cn("relative p-4 rounded-2xl text-sm leading-relaxed shadow-sm", 
           isUser ? "bg-blue-600 text-white rounded-tr-none" : 
-          (isSystem ? "bg-red-900/50 text-red-200 border border-red-800" : "bg-gray-800 text-gray-100 border border-gray-700 rounded-tl-none"),
-          isHIC && "border-yellow-500/50 bg-yellow-900/20 shadow-yellow-500/10")}>
+          (isSystem ? "bg-red-900/50 text-red-200 border border-red-800" : "bg-gray-800 text-gray-100 border border-gray-700 rounded-tl-none"))}>
           
-          {isHIC && <div className="flex items-center gap-2 mb-2 text-yellow-500 text-xs font-bold uppercase tracking-wider">
-            <ShieldAlert size={14} /> HIC Controller
-          </div>}
-
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
@@ -44,7 +38,7 @@ export function MessageBubble({ role, content }) {
                   </code>
                 );
               },
-              p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+              p: ({ children }) => <p className="mb-2 last:mb-0 whitespace-pre-wrap">{children}</p>,
               ul: ({ children }) => <ul className="list-disc pl-4 mb-2">{children}</ul>,
               ol: ({ children }) => <ol className="list-decimal pl-4 mb-2">{children}</ol>,
               blockquote: ({ children }) => <blockquote className="border-l-4 border-gray-600 pl-4 italic my-2">{children}</blockquote>,

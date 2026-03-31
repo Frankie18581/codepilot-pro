@@ -5,3 +5,7 @@ node_modules/
 .DS_Store
 venv/
 *.log
+docs/learning_guide/01_architecture_and_flow.md
+.gitignore
+docs/learning_guide/03_syntax_and_libraries.md
+docs/learning_guide/02_core_logic_and_algorithms.md

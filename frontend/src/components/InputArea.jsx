@@ -1,5 +1,5 @@
 import { Send, Terminal } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 
 export function InputArea({ input, setInput, onSend, loading }) {
   return (
@@ -12,7 +12,7 @@ export function InputArea({ input, setInput, onSend, loading }) {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && onSend()}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && onSend()}
             placeholder="输入自然语言需求 (例如：写一个 Python 爬虫)..."
             className="w-full bg-gray-950 border border-gray-800 rounded-xl px-12 py-4 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-white placeholder-gray-600 shadow-inner"
             disabled={loading}

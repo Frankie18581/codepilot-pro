@@ -10,6 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt \
     --trusted-host pypi.tuna.tsinghua.edu.cn
 
 COPY . .
+# 是否需要dockerignore?
 
 EXPOSE 8000
 
